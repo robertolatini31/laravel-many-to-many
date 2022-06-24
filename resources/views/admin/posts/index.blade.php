@@ -1,6 +1,9 @@
 @extends('layouts.admin')
 
 @section('content')
+<div class="text-right">
+    <a class="btn btn-success mr-4" href="{{route('admin.posts.create')}}">Create Post</a>
+</div>
 <div class="container">
     <table class="table">
         <thead>
