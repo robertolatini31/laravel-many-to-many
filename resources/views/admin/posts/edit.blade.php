@@ -26,7 +26,7 @@
     <select name="category_id" id="category_id" class="form-coltrol @error('category_id') is-invalid @enderror">
       <option value="">Scegli una categoria</option>
       @foreach($categories as $category)
-        <option value="{{ $category->id }}" {{ $post['category_id'] == $category->id ? 'selected' : '' }}>{{$category->name}}</option>
+        <option value="{{ $category->id }}" {{ $category->id == old('category_id', $post->category ? $post->category->id : '') ? 'selected' : ''}}>{{$category->name}}</option>
       @endforeach
     </select>
   </div>
