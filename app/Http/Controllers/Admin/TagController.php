@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
-
+use Illuminate\Validation\Rule;
 class TagController extends Controller
 {
     /**
@@ -52,7 +52,7 @@ class TagController extends Controller
     public function update(Request $request, Tag $tag)
     {
         $validated_data = $request->validate([
-            'name' => 'required|unique:tags'
+            'name' => ['required', Rule::unique('tags')->ignore($tag)]
         ]);
         $slug = Str::slug($request->name);
         $validated_data['slug'] = $slug;
