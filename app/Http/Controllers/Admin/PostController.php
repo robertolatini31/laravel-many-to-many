@@ -47,7 +47,8 @@ class PostController extends Controller
         $validated_data = $request->validated();
         $slug = Str::slug($request->title, '-');
         $validated_data['slug'] = $slug;
-        Post::create($validated_data);
+        $new_post = Post::create($validated_data);
+        $new_post->tags()->attach($request->tags);
         return redirect()->route('admin.posts.index')->with('message', 'Post Added Successfully');
     }
 
@@ -72,7 +73,8 @@ class PostController extends Controller
     {
         //dd($post['category_id']);
         $categories = Category::all();
-        return view('admin.posts.edit', compact('post', 'categories'));
+        $tags = Tag::all();
+        return view('admin.posts.edit', compact('post', 'categories', 'tags'));
     }
 
     /**
@@ -89,7 +91,7 @@ class PostController extends Controller
         $slug = Str::slug($request->title, '-');
         $validated_data['slug'] = $slug;
         $post->update($validated_data);
-
+        $post->tags()->sync($request->tags);
         return redirect()->route('admin.posts.index')->with('message', 'Post Edited Successfully');
     }
 

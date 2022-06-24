@@ -30,6 +30,22 @@
       @endforeach
     </select>
   </div>
+
+
+  <div class="mb-3">
+    <label for="tags" class="form-label">Tags</label>
+    <select multiple class="form-control" name="tags[]" id="tags">
+      <option value="" disabled>Scegli una categoria</option>
+        @forelse($tags as $tag)
+          <option value="{{$tag->id}}" {{is_array(old('tags')) && in_array($tag->id, old('tags')) ? 'selected' : '' }}>{{$tag->name}}</option>
+        @empty
+        <option value="">NO TAGS</option>
+        @endforelse
+    </select>
+  </div>
+
+
+
   <div class="mb-3">
     <label for="img" class="form-label">Image</label>
     <input type="text" class="form-control" name="img" id="img" aria-describedby="imghelp" value="{{old('img', $post->img)}}">
