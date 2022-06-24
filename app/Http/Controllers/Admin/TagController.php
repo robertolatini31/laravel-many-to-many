@@ -51,7 +51,13 @@ class TagController extends Controller
      */
     public function update(Request $request, Tag $tag)
     {
-        //
+        $validated_data = $request->validate([
+            'name' => 'required|unique:tags'
+        ]);
+        $slug = Str::slug($request->name);
+        $validated_data['slug'] = $slug;
+        $tag->update($validated_data);
+        return redirect()->back()->with('message', "Tag $slug modificato correttamente");
     }
 
     /**
@@ -62,6 +68,8 @@ class TagController extends Controller
      */
     public function destroy(Tag $tag)
     {
-        //
+        $tag->delete();
+
+        return redirect()->back()->with('message', "Tag $tag->name eliminato correttamente");
     }
 }
