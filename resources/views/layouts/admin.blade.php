@@ -65,6 +65,12 @@
                             Categories
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('admin.tags.index')}}">
+                            <span data-feather="file"></span>
+                            Tags
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </nav>
