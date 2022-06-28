@@ -5,7 +5,7 @@
 <div class="p-5 bg-light">
     <div class="container">
         <div class="img_container d-flex align-items-center">
-            <img src="{{$post->img}}" alt="">
+            <img src="{{asset('storage/' . $post->img)}}" alt="">
             <h1 class="display-3">{{$post->title}}</h1>
         </div>
         <div class="metadata py-3">

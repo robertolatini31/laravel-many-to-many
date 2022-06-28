@@ -21,7 +21,7 @@
                     <td scope="row">{{$post->id}}</td>
                     <td>{{$post->title}}</td>
                     <td>{{$post->content}}</td>
-                    <td><img width="100" src="{{$post->img}}" alt="img $post->title"></td>
+                    <td><img width="100" src="{{asset('storage/' . $post->img)}}" alt="img $post->title"></td>
                     <td>{{$post->slug}}</td>
                     <td class="d-flex flex-column align-items-center -justify-content-center">
                         <a class="btn btn-primary m-1" href="{{route('admin.posts.show', $post->slug)}}"> 

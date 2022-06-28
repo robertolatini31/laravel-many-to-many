@@ -9,6 +9,7 @@ use App\Http\Requests\PostRequest;
 use Illuminate\Support\Str;
 use App\Models\Category;
 use App\Models\Tag;
+use Illuminate\Support\Facades\Storage;
 class PostController extends Controller
 {
     /**
@@ -47,6 +48,16 @@ class PostController extends Controller
         $validated_data = $request->validated();
         $slug = Str::slug($request->title, '-');
         $validated_data['slug'] = $slug;
+        
+        //add img file
+        if($request->hasFile('img')) {
+            $request->validate([
+                'img' => 'nullable|image|max:250'
+            ]);
+            $path_img = Storage::put('post_images', $request->img);
+            $validated_data['img'] = $path_img;
+        }
+
         $new_post = Post::create($validated_data);
         $new_post->tags()->attach($request->tags);
         return redirect()->route('admin.posts.index')->with('message', 'Post Added Successfully');
