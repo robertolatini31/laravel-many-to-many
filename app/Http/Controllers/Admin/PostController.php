@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\PostRequest;
 use App\Mail\NewPostCreated;
+use App\Mail\PostUpdatedAdminMessage;
 use Illuminate\Support\Str;
 use App\Models\Category;
 use App\Models\Tag;
@@ -121,6 +122,9 @@ class PostController extends Controller
 
         $post->update($validated_data);
         $post->tags()->sync($request->tags);
+
+        Mail::to('admin@example.com')->send(new PostUpdatedAdminMessage($post));
+
         return redirect()->route('admin.posts.index')->with('message', 'Post Edited Successfully');
     }
 
