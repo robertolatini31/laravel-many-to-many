@@ -6,9 +6,11 @@ use App\Models\Post;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\PostRequest;
+use App\Mail\NewPostCreated;
 use Illuminate\Support\Str;
 use App\Models\Category;
 use App\Models\Tag;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 class PostController extends Controller
 {
@@ -60,6 +62,10 @@ class PostController extends Controller
 
         $new_post = Post::create($validated_data);
         $new_post->tags()->attach($request->tags);
+
+
+        Mail::to($request->user())->send(new NewPostCreated($new_post));
+
         return redirect()->route('admin.posts.index')->with('message', 'Post Added Successfully');
     }
 
