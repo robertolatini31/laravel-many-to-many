@@ -4,7 +4,7 @@
 
 <div class="container py-5">
 @include('partials.error')
-<form action="{{route('admin.posts.store')}}" method="post">
+<form action="{{route('admin.posts.store')}}" method="post" enctype="multipart/form-data">
     @csrf
   <div class="mb-3">
     <label for="title" class="form-label">Titolo</label>
@@ -46,7 +46,7 @@
 
   <div class="mb-3">
     <label for="img" class="form-label">Image</label>
-    <input type="text" class="form-control" name="img" id="img" aria-describedby="imghelp" value="{{old('img')}}">
+    <input type="file" class="form-control" name="img" id="img" aria-describedby="imghelp">
     <div id="imghelp" class="form-text">Inserire Immagine del post</div>
   </div>
   <button type="submit" class="btn btn-primary">Aggiungi</button>
