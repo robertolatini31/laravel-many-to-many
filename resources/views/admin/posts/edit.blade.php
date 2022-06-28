@@ -5,7 +5,7 @@
 <div class="container py-5">
   <h3>Stai modificando: {{$post->title}}</h3>
 @include('partials.error')
-<form action="{{route('admin.posts.update', $post->slug)}}" method="post">
+<form action="{{route('admin.posts.update', $post->slug)}}" method="post" enctype="multipart/form-data">
     @csrf
     @method('PUT')
   <div class="mb-3">
@@ -48,7 +48,7 @@
 
   <div class="mb-3">
     <label for="img" class="form-label">Image</label>
-    <input type="text" class="form-control" name="img" id="img" aria-describedby="imghelp" value="{{old('img', $post->img)}}">
+    <input type="file" class="form-control" name="img" id="img" aria-describedby="imghelp">
     <div id="imghelp" class="form-text">Inserire Immagine del post</div>
   </div>
   <button type="submit" class="btn btn-primary">Modifica</button>

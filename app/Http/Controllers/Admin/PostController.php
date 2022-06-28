@@ -101,6 +101,18 @@ class PostController extends Controller
         //dd($validated_data);
         $slug = Str::slug($request->title, '-');
         $validated_data['slug'] = $slug;
+
+        if($request->hasFile('img')) {
+            $request->validate([
+                'img' => 'nullable|image|max:250'
+            ]);
+            Storage::delete($post->img);
+            $path_img = Storage::put('post_images', $request->img);
+            $validated_data['img'] = $path_img;
+        }
+
+
+
         $post->update($validated_data);
         $post->tags()->sync($request->tags);
         return redirect()->route('admin.posts.index')->with('message', 'Post Edited Successfully');
